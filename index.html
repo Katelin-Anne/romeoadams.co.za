@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romeo Adams Consulting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root{--navy:#0a3761;--gold:#faca23;--white:#ffffff;--light:#f8f9fa;--gray:#555;--border:#e2e8f0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;margin:0;font-family:'Montserrat',sans-serif;background:var(--light);color:var(--gray);line-height:1.8;overflow-x:hidden}
+        html{scroll-behavior:smooth;scroll-padding-top:100px}
+
+        /* NAVBAR */
+        nav{position:fixed;top:0;left:0;right:0;background:var(--white);z-index:9999;box-shadow:0 4px 25px rgba(10,55,97,.15)}
+        .nav{max-width:1600px;margin:auto;padding:0.8rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.8rem}
+        .logo img{height:56px;transition:.3s}
+        .links{display:flex;gap:1.8rem;align-items:center;flex-wrap:wrap}
+        .links a{color:var(--navy);text-decoration:none;font-weight:600;font-size:0.95rem;position:relative;padding:.3rem 0;transition:.3s}
+        .links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:.3s}
+        .links a:hover::after,.links a.active::after{width:100%}
+        .hamburger{display:none;cursor:pointer;z-index:10000}
+        .hamburger span{display:block;width:28px;height:2.5px;background:var(--navy);margin:5px 0;border-radius:2px;transition:.3s}
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+        .hamburger.active span:nth-child(2){opacity:0}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+        /* HERO — FULL BANNER */
+        #home{min-height:100vh;min-height:100dvh;background:url('images/banner.jpg') center/cover no-repeat;background-attachment:fixed;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white);padding:100px 0.8rem 3rem;position:relative}
+        .hero-content{max-width:1200px;margin:auto;padding:1.8rem;z-index:2}
+        .hero-content h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5rem);color:var(--gold);text-shadow:4px 4px 22px rgba(0,0,0,.9);margin:0 0 1.5rem;line-height:1.1;word-break:keep-all}
+        .hero-content p{font-size:clamp(1.35rem,3.5vw,2.1rem);margin:0;font-weight:600;letter-spacing:0.8px;text-shadow:3px 3px 16px rgba(0,0,0,.95)}
+
+        /* SECTIONS */
+        section{padding:6rem 0.8rem 4rem;max-width:1300px;margin:auto}
+        h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,5vw,3rem);color:var(--navy);text-align:center;margin:2rem 0 1.8rem;position:relative}
+        h2::after{content:'';width:80px;height:3.5px;background:var(--gold);position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);border-radius:3px}
+        .card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 14px 36px rgba(10,55,97,.12);transition:.35s}
+        .card:hover{transform:translateY(-12px);box-shadow:0 24px 48px rgba(10,55,97,.22)}
+        .card-body{padding:2.4rem}
+        .profile{text-align:center;padding:4rem 1rem}
+        .profile img{width:200px;height:200px;border-radius:50%;border:10px solid var(--gold);object-fit:cover;margin:0 auto 1.6rem;box-shadow:0 14px 36px rgba(10,55,97,.22)}
+
+        .contact-grid{display:grid;grid-template-columns:1fr;gap:1.8rem;margin-top:3.2rem}
+        .contact-card{background:var(--white);padding:2.2rem;border-radius:16px;box-shadow:0 12px 32px rgba(10,55,97,.1);text-align:center;transition:.3s}
+        .contact-card:hover{transform:translateY(-10px)}
+        .contact-card i{font-size:2.6rem;margin-bottom:1rem;background:linear-gradient(45deg,var(--gold),#e6b800);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .contact-card h3{color:var(--navy);margin:1rem 0 .5rem;font-size:1.3rem;font-family:'Playfair Display',serif}
+        .contact-card p,.contact-card a{font-weight:600;font-size:1rem;line-height:1.7;color:var(--navy);text-decoration:none}
+        .contact-card a:hover{color:var(--gold)}
+
+        .socials{margin:3.5rem auto 0;display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap}
+        .socials a{font-size:2.4rem;color:var(--navy);transition:.4s;padding:.3rem}
+        .socials a:hover{color:var(--gold);transform:scale(1.3) rotate(8deg)}
+
+        .comp-list h3{color:var(--navy);font-size:1.5rem;margin:1.8rem 0 1rem;border-bottom:3px solid var(--gold);padding-bottom:.5rem;display:inline-block}
+        .comp-list ul{list-style:none;padding-left:0;margin:1.4rem 0}
+        .comp-list li{position:relative;padding-left:2.4rem;margin:1rem 0;font-size:1rem;line-height:1.55;display:flex;align-items:flex-start}
+        .comp-list li:before{content:'\f058';font-family:'Font Awesome 6 Free';font-weight:900;color:var(--gold);font-size:1.3rem;position:absolute;left:0;top:2px}
+
+        .table-container{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.8rem 0;border-radius:12px;box-shadow:0 10px 28px rgba(10,55,97,.08)}
+        table{width:100%;min-width:600px;border-collapse:collapse;border:1px solid var(--border);font-size:0.88rem}
+        th{background:var(--navy);color:var(--white);padding:0.9rem 0.8rem;text-align:left;font-weight:600;font-size:0.92rem}
+        td{padding:0.9rem 0.8rem;border-bottom:1px solid var(--border);vertical-align:top}
+        tr:nth-child(even){background:#fafbfc}
+        tr:hover{background:var(--gold);color:var(--white);transition:.2s}
+        .employer{font-weight:700;color:var(--navy)}
+        .position{font-style:italic;color:var(--gray)}
+        .dates{font-weight:600;color:var(--gold);white-space:nowrap}
+
+        .services-list{padding:1.8rem 0}
+        .services-list ul{list-style:none;padding-left:0;display:grid;grid-template-columns:1fr;gap:1.4rem}
+        .services-list li{position:relative;padding:1.1rem 1.3rem 1.1rem 2.8rem;font-size:1rem;line-height:1.55;background:var(--white);border-radius:14px;box-shadow:0 7px 22px rgba(10,55,97,.07);transition:.3s;min-height:52px;display:flex;align-items:center}
+        .services-list li:hover{transform:translateY(-5px);box-shadow:0 10px 28px rgba(10,55,97,.14)}
+        .services-list li:before{content:'\f058';font-family:'Font Awesome 6 Free';font-weight:900;color:var(--gold);font-size:1.3rem;position:absolute;left:1rem;top:50%;transform:translateY(-50%)}
+
+        footer{background:var(--navy);color:var(--white);text-align:center;padding:3rem;font-size:1rem}
+        footer a{color:var(--gold)}
+
+        @media(max-width:768px){
+            html{scroll-padding-top:80px}
+            #home{padding-top:80px}
+            .links{position:fixed;top:68px;left:0;right:0;background:var(--white);flex-direction:column;padding:2.2rem 0;display:none;box-shadow:0 18px 36px rgba(10,55,97,.22);border-radius:0 0 18px 18px;max-height:70vh;overflow-y:auto}
+            .links.show{display:flex}
+            .hamburger{display:block}
+            .hero-content h1{font-size:2.4rem}
+            .hero-content p{font-size:1.2rem}
+            .profile img{width:180px;height:180px;border-width:9px}
+            section{padding:5rem 0.8rem 3rem}
+        }
+        @media(max-width:480px){
+            html{scroll-padding-top:75px}
+            #home{padding-top:75px}
+            .logo img{height:50px}
+            .nav{padding:0.6rem 0.9rem}
+            .links{top:62px}
+            .hero-content h1{font-size:2.1rem}
+            .hero-content p{font-size:1.1rem}
+        }
+        @media(min-width:992px){
+            .nav{padding:1rem 2.5rem}
+            .logo img{height:78px}
+            .links{gap:2.6rem}
+            .links a{font-size:1.08rem}
+            section{padding:8rem 1.5rem 5rem;max-width:1300px}
+            .contact-grid{grid-template-columns:repeat(3,1fr)}
+            .services-list ul{grid-template-columns:repeat(3,1fr)}
+            .services-list li{font-size:1.2rem;padding:1.6rem 1.8rem 1.6rem 3.6rem;min-height:68px}
+            .services-list li:before{font-size:1.6rem;left:1.4rem}
+            .table-container{overflow-x:hidden}
+            table{min-width:auto}
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="nav">
+        <div class="logo"><img src="images/raLogo.jpg" alt="Romeo Adams"></div>
+        <div class="links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">Owner</a>
+            <a href="#consultancy">Consultancy</a>
+            <a href="#competencies">Competencies</a>
+            <a href="#qualifications">Qualifications</a>
+            <a href="#experience">Experience</a>
+            <a href="#governance">Governance</a>
+            <a href="#activities">Activities</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+    <div class="hero-content">
+        <h1>Romeo Adams<br>Consulting Services</h1>
+        <p>“To Facilitate Change in Communities through Empowerment”</p>
+    </div>
+</section>
+
+<!-- ABOUT OWNER -->
+<section id="about">
+    <h2>About the Owner</h2>
+    <div class="profile">
+        <img src="images/romeo2019.jpeg" alt="Romeo Adams">
+        <h3 style="font-size:2rem;color:var(--navy)">Romeo Adams</h3>
+        <p>Born 3 October 1970 • Bellville, Cape Town</p>
+    </div>
+    <div class="card"><div class="card-body">
+        <p><strong>Romeo Adams Consulting Services</strong> is an owner-managed consultancy, providing predominantly <strong>human resource management and development consulting</strong>, but also providing <strong>project management</strong> and <strong>parliamentary practice and procedure consulting</strong>.</p>
+        <p>Romeo Adams is a professionally registered, qualified and experienced Human Resources Executive aiming to develop and make a difference in the lives of previously disadvantaged communities. The consultancy establishes relationships with previously disadvantaged communities and stakeholders who want to contribute towards the development of such communities.</p>
+        <p>Romeo is a seasoned executive leader with over two decades of strategic management experience across South Africa’s public sector. His career spans high-impact roles equivalent to Director-General and Chief Executive Officer, including his most recent tenure as <strong>Secretary to the Western Cape Provincial Parliament (2019–2025)</strong>.</p>
+        <p>Known for his exceptional analytical acumen, emotional intelligence, and visionary leadership, Romeo consistently aligns institutional goals with transformative action. He holds a <strong>Master’s Degree in Industrial Psychology</strong> and has led diverse portfolios in justice, correctional services, tourism, and legislative governance.</p>
+        <p>Romeo’s core strengths include strategic planning, financial oversight, human capital management and development, and stakeholder engagement at the highest levels—ranging from parliamentary authorities to international organisations.</p>
+        <p>He is a published thought leader and international speaker, contributing to global dialogues on legislative modernisation, cybersecurity, and executive accountability. His governance expertise is further reflected in board memberships across education, sport, and public service institutions. A registered <strong>Master HR Professional with the South African Board of People Practices</strong>, Romeo blends technical mastery with a deep commitment to service delivery innovation and institutional excellence.</p>
+        <p>Outside of his professional realm, Romeo is a passionate sports administrator and coach, having led rugby and baseball federations with the same rigor and pride he brings to public service. His leadership is defined by integrity, resilience, and a relentless pursuit of progress.</p>
+        <h3 style="color:var(--navy);margin-top:2.5rem">About the owner</h3>
+        <p>Romeo Adams, born on <strong>3 October 1970</strong> in Bellville, Cape Town, is the youngest of five children. He grew up in Elsies River, matriculated in 1989 at Valhalla Senior Secondary School, and is married to Hayley, with his three sons: Rory, Reece, and Romano.</p>
+        <p>Deeply rooted in his community, Romeo is committed to contributing meaningfully to the upliftment of previously disadvantaged communities and remains actively engaged in initiatives that foster sustainable development in Elsies River.</p>
+        <p>He began his career as a male nurse at Tygerberg Hospital before pursuing studies in Public Administration, which set him on a path of leadership in the public service. With a strong focus on people development, he has built an extensive career as a professionally registered Human Resources Executive, serving communities in the Western Cape, Limpopo, and Gauteng since 1989.</p>
+        <p>Rising through the administrative ranks, Romeo has consistently championed transformation and capacity-building. His expertise and dedication were further recognised in 2015, when he was appointed as an <strong>Executive Committee Member of the Public Service Coordinating Bargaining Council (PSCBC)</strong>, the central bargaining forum for the South African Public Service.</p>
+        <p style="font-weight:600;margin-top:2.5rem">Please take some time to browse through the website to find out more about the consultancy, its values, competencies, experience, community involvement and how to make contact.</p>
+    </div></div>
+</section>
+
+<!-- CONSULTANCY -->
+<section id="consultancy">
+    <h2>About the Consultancy</h2>
+    <div class="card"><div class="card-body">
+        <h3 style="color:var(--navy)">OUR VISION</h3>
+        <p>To Facilitate Change in Communities through Empowerment</p>
+        <h3 style="color:var(--navy)">OUR MISSION</h3>
+        <p>To provide transparent, responsive and accountable human resource and project management services to predominantly previously disadvantaged communities.</p>
+        <h3 style="color:var(--navy)">OUR VALUES</h3>
+        <ul style="margin-top:1.2rem">
+            <li>Commitment to community development</li>
+            <li>Building sustainable relationships</li>
+            <li>Sustainable, needs-based interventions</li>
+            <li>Professional, value-for-money services</li>
+        </ul>
+    </div></div>
+</section>
+
+<!-- COMPETENCIES -->
+<section id="competencies">
+    <h2>Core Competencies</h2>
+    <div class="comp-list" style="max-width:1000px;margin:auto">
+        <h3>Knowledge</h3>
+        <ul>
+            <li>Knowledge of constitutional, legal and institutional arrangements governing the South African employment law, including the public service.</li>
+            <li>Understanding of global, regional and local, economic and social impacts on the programmes of government</li>
+            <li>Parliamentary practice, process and procedure</li>
+            <li>People management and organisational development practices</li>
+            <li>Access to information, archives, critical infrastructure protection and information security legislative frameworks</li>
+        </ul>
+        <h3>Skills</h3>
+        <ul>
+            <li>Strategic Leadership Capability and Analytical & Problem-solving skills</li>
+            <li>Organisation and Management skills [incl. financial & project management]</li>
+            <li>Conflict Resolution and Crises & Change Management skills</li>
+            <li>Excellent Communication & Interpersonal Skills</li>
+        </ul>
+        <h3>Personal Attributes</h3>
+        <ul>
+            <li>Innovative Thinking; Outcomes Focussed & Receptive to Suggestions and Innovation</li>
+            <li>Committed to Transformation; Client Orientated and Service Delivery Focussed</li>
+            <li>Dynamic, Unconventional, Energetic, Go-getting, Self-starter</li>
+        </ul>
+    </div>
+</section>
+
+<!-- QUALIFICATIONS -->
+<section id="qualifications">
+    <h2>Qualifications & Professional Registration</h2>
+    <div class="card"><div class="card-body">
+        <h3 style="color:var(--navy);text-align:center;margin-bottom:1.6rem">Academic Qualifications</h3>
+        <div class="table-container">
+            <table>
+                <tr><th>Qualification</th><th>Date Obtained</th><th>Institution</th></tr>
+                <tr><td>Doctor of Philosophy [PhD]: Management of Technology & Innovation</td><td>2016 – Current</td><td>Da Vinci Institute, Modderfontein</td></tr>
+                <tr><td>Masters in Administration – Industrial Psychology</td><td>2007</td><td>University of Western Cape [UWC], Bellville</td></tr>
+                <tr><td>Bachelor in Administration Honours – Industrial Psychology</td><td>2001</td><td>University of Western Cape [UWC], Bellville</td></tr>
+                <tr><td>Bachelors in Administration – Public Administration & Industrial Psychology</td><td>1999</td><td>University of Western Cape [UWC], Bellville</td></tr>
+            </table>
+        </div>
+        <h3 style="color:var(--navy);text-align:center;margin:2.5rem 0 1.6rem">Professional Registration</h3>
+        <div class="table-container">
+            <table>
+                <tr><th>Association</th><th>Date Registered</th><th>Capacity</th></tr>
+                <tr><td>South African Board of Peoples Practice [SABPP]</td><td>Current</td><td>Master Human Resources Professional</td></tr>
+            </table>
+        </div>
+    </div></div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+    <h2>22 Years Executive Leadership</h2>
+    <div class="card"><div class="card-body">
+        <p style="font-weight:600;margin-bottom:1.8rem">
+            A dynamic leader and strategic thinker, Romeo has served in various executive management and leadership roles (including Director-General, Chief Executive Officer equivalents) over the past 22 years, with exceptional numerical and verbal reasoning skills. He excels in complex problem-solving, financial management, effective communication and aligning organisational vision with actionable goals. Resilient, emotionally intelligent and able to manage stress; Romeo is a strong, yet transformational leader — capable of driving organisational success and fostering positive stakeholder relationships.
+        </p>
+        <h3 style="color:var(--navy);margin:2.5rem 0 1.6rem;text-align:center">Professional Experience</h3>
+        <div class="table-container">
+            <table>
+                <tr><th>Name of Employer</th><th>Position Held</th><th>From</th><th>To</th></tr>
+                <tr><td class="employer">Western Cape Provincial Parliament, Cape Town</td><td class="position">Secretary to Provincial Parliament</td><td class="dates">Apr 2019</td><td class="dates">Mar 2025</td></tr>
+                <tr><td class="employer">Department of Correctional Services, PRETORIA</td><td class="position">Chief Deputy Commissioner: Human Resources</td><td class="dates">Jul 2018</td><td class="dates">Mar 2019</td></tr>
+                <tr><td class="employer">Dept. of Justice & Constitutional Development, PRETORIA</td><td class="position">Deputy Director-General: Corporate Services</td><td class="dates">Aug 2013</td><td class="dates">Jun 2018</td></tr>
+                <tr><td class="employer">Limpopo Provincial Legislature, LEBOWAKGOMO, Limpopo</td><td class="position">Head of Human Resources Management & Labour Relations</td><td class="dates">Jun 2011</td><td class="dates">Jul 2013</td></tr>
+                <tr><td class="employer">Cape Town Routes Unlimited [DMO], CAPE TOWN</td><td class="position">Executive Manager: Marketing & Organisational Supports</td><td class="dates">Oct 2008</td><td class="dates">Jun 2011</td></tr>
+                <tr><td class="employer">National Prosecuting Authority of South Africa [NPA], PRETORIA</td><td class="position">Executive Manager: HRM & D</td><td class="dates">Dec 2007</td><td class="dates">Sep 2008</td></tr>
+                <tr><td class="employer">Dept. of Economic Development & Tourism, CAPE TOWN</td><td class="position">Head: HRM & Support Services</td><td class="dates">Oct 2003</td><td class="dates">Nov 2007</td></tr>
+            </table>
+        </div>
+        <p style="text-align:center;font-weight:600;color:var(--navy);margin-top:2.5rem">
+            Romeo is currently on <strong>(soft) retirement</strong> — available for select mandates.
+        </p>
+    </div></div>
+</section>
+
+<!-- GOVERNANCE -->
+<section id="governance">
+    <h2>MEMBERSHIP OF BOARDS AND GOVERNANCE COMMITTEES</h2>
+    <div class="card"><div class="card-body">
+        <ul style="list-style:none;padding:0">
+            <li style="margin:1.2rem 0"><strong>Member of Disciplinary Sub-Committee</strong> – Western Province Rugby Football Union (2025 – Current)</li>
+            <li style="margin:1.2rem 0"><strong>Member of School Governing Body (SGB)</strong> – Cheré Botha School (Special Needs), Bellville (2021 – Current)</li>
+            <li style="margin:1.2rem 0"><strong>Southern Africa Subregion Representative</strong> – Society of Clerks-at-the-Table (2021 – 2024)</li>
+            <li style="margin:1.2rem 0"><strong>Deputy Chairperson of Board of Trustees</strong> – Department of Correctional Services’ Facilities Fund (2018 – 2019)</li>
+            <li style="margin:1.2rem 0"><strong>Member of Accounting Authority/Board</strong> – SASSETA (2018 – 2019)</li>
+            <li style="margin:1.2rem 0"><strong>Member of Human Capital Management and Remuneration Committee</strong> – Financial and Fiscal Commission (FFC) (2018 – 2021)</li>
+            <li style="margin:1.2rem 0"><strong>Member of Human Resources Sub-Committee</strong> – Western Province Rugby Football Union (2019 – 2020)</li>
+        </ul>
+    </div></div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+    <h2>Community & Sport Involvement</h2>
+    <div class="card"><div class="card-body">
+        <h3 style="color:var(--navy)">Community Development</h3>
+        <ul>
+            <li>Member of Community of Hope NPO in Elsies River.</li>
+            <li>Participate in activities of community NPO in St Helena Bay.</li>
+        </ul>
+        <h3 style="color:var(--navy)">Sport & Outdoor Activities</h3>
+        <ul>
+            <li>World Rugby Level 2 certified rugby coach (15s) – Forwards & Backline: Coaching senior school players with focus on technical skills, tactical awareness and conditioning. Also assist with club rugby coaching at senior and youth level.</li>
+            <li>Former member of the Western Province Referees’ Association</li>
+            <li>Former Masters Ball players at club and provincial level</li>
+            <li>Participate in outdoor activities such as hiking, nature excursions, fun walks/runs, etc.</li>
+        </ul>
+    </div></div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <h2>For All Your Project Management & Human Resources Consulting Requirements</h2>
+    <div class="card"><div class="card-body">
+        <div class="services-list">
+            <ul>
+                <li>Competency Recruitment</li>
+                <li>Organisational Development</li>
+                <li>Employee Discipline</li>
+                <li>Collective Bargaining</li>
+                <li>Transformation Management</li>
+                <li>HR Policy Development</li>
+                <li>CCMA/Bargaining Council Representation</li>
+                <li>Strategic HR Planning</li>
+                <li>Employee Performance Management</li>
+                <li>Institutional Performance Management</li>
+                <li>Project Management</li>
+                <li>Training & Development</li>
+                <li>Organisational Design, Job Profiles & Job Grading</li>
+                <li>Sports Management & Administration</li>
+                <li>Commissioning of Oaths</li>
+            </ul>
+        </div>
+    </div></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <h2>Get In Touch</h2>
+    <div class="contact-grid">
+        <div class="contact-card">
+            <i class="fas fa-envelope"></i><h3>Post</h3>
+            <p>Romeo Adams Consulting Services<br>P.O Box 361<br>SONEIKE<br>7583<br>Western Cape<br>South Africa</p>
+        </div>
+        <div class="contact-card">
+            <i class="fab fa-whatsapp"></i><h3>Call / WhatsApp</h3>
+            <a href="tel:+27821234567">082 123 4567</a><br>
+            <a href="tel:+27219876543">021 987 6543</a>
+        </div>
+        <div class="contact-card">
+            <i class="fas fa-paper-plane"></i><h3>Email</h3>
+            <a href="mailto:info@romeoadams.co.za">info@romeoadams.co.za</a><br>
+            <a href="mailto:romeo@romeoadams.co.za">romeo@romeoadams.co.za</a>
+        </div>
+    </div>
+    <div class="socials">
+        <a href="https://wa.me/27821234567" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/romeo.adams.1481" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/romeo-adams-9169a155" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://x.com/RomyWp" target="_blank" title="X (Twitter)">
+            <i class="fab fa-x-twitter"></i>
+        </a>
+    </div>
+</section>
+
+<footer>
+    <p style="margin:0;font-size:0.95rem;line-height:1.7;">
+        © 2025 Romeo Adams Consulting • P.O Box 361, SONEIKE 7583<br>
+        <a href="tel:+27821234567" style="color:var(--gold);text-decoration:none;">082 123 4567</a> • 
+        <a href="mailto:info@romeoadams.co.za" style="color:var(--gold);text-decoration:none;">info@romeoadams.co.za</a><br>
+        <strong style="color:var(--gold);font-size:0.98rem;">SABPP Reg No: 4286 3954</strong>
+    </p>
+</footer>
+
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+        });
+    });
+
+    const h = document.getElementById('hamburger'), n = document.getElementById('navLinks');
+    h.addEventListener('click', () => {
+        h.classList.toggle('active');
+        n.classList.toggle('show');
+    });
+    document.querySelectorAll('.links a').forEach(l => {
+        l.addEventListener('click', () => {
+            n.classList.remove('show');
+            h.classList.remove('active');
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        document.querySelectorAll('section').forEach(section => {
+            const sectionTop = section.offsetTop - 150;
+            if (pageYOffset >= sectionTop) current = section.getAttribute('id');
+        });
+        document.querySelectorAll('.links a').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>
